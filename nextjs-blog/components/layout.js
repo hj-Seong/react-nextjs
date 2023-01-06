@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
+import Image from 'next/image';
 
 const Layout = ({children, home}) => {
     return ( 
@@ -9,10 +10,33 @@ const Layout = ({children, home}) => {
                 <title>layout next</title>
             </Head>
             <header>
-                { home ? <h1>home</h1> : <h1>not home</h1>}
+                { home ? 
+                <div>
+                    <Image
+                    src='/images/profile.jpg'
+                    height={144}
+                    width={144}
+                    alt="프로필사진"
+                    ></Image>
+                    <h2>Green blog</h2>
+                </div>
+                :                 <div>
+                <Image
+                src='/images/profile.jpg'
+                height={100}
+                width={100}
+                alt="프로필사진"
+                ></Image>
+                <h2>Green blog post</h2>
+            </div>
+            }
             </header>
 
             <div>{children}</div>
+            
+            <footer>
+                <p>개인 블로그입니다</p>
+            </footer>
         </div>
     );
 }
