@@ -4,8 +4,19 @@ import { getAllPostIds, getPostData } from '../../lib/posts';
 export async function getStaticPaths() {
     const paths = getAllPostIds();
     return {
-        paths,
-        fallback :false
+        paths : [
+            {
+                params: {
+                    id:'pre-rendering'
+                }
+            },
+            {
+                params: {
+                    id:'ssg-ssr'
+                }
+            }
+        ],
+        fallback : false
     }
 }
 
@@ -14,16 +25,20 @@ export async function getStaticProps({params}) {
     return {
         props : {
             postData,
+            id: params.id
         }
     }
 }
 
 
-const Post = () => {
+const Post = ({postData, id}) => {
     
     return ( 
         <Layout>
-            <h1>동적경로를 확인합니다</h1>
+            <h1>{postData.title}</h1>
+            <p>{postData.id}</p>
+            <p>{postData.date}</p>
+            <p>{id}</p>
         </Layout>
      );
 }
